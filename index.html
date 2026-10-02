@@ -1,0 +1,1922 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>NEXORA</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#080b12;
+    color:white;
+}
+
+nav{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:#0d111b;
+    border-bottom:1px solid #202838;
+    padding:15px 30px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:bold;
+    color:#6ea8ff;
+}
+
+.nav-links{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+.nav-links button{
+    background:transparent;
+    border:0;
+    color:#aaa;
+    padding:10px 12px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.nav-links button:hover{
+    background:#182131;
+    color:white;
+}
+
+.user-box{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.user-name{
+    color:#6ea8ff;
+    font-weight:bold;
+}
+
+.page{
+    display:none;
+    min-height:calc(100vh - 70px);
+    padding:40px 7%;
+}
+
+.page.active{
+    display:block;
+}
+
+.hero{
+    min-height:75vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+
+.hero h1{
+    font-size:70px;
+    color:#6ea8ff;
+    margin-bottom:15px;
+}
+
+.hero p{
+    color:#aaa;
+    font-size:20px;
+    max-width:700px;
+    line-height:1.6;
+}
+
+.btn{
+    background:#367cff;
+    border:0;
+    color:white;
+    padding:12px 18px;
+    border-radius:8px;
+    cursor:pointer;
+    margin:5px;
+    font-size:15px;
+}
+
+.btn:hover{
+    background:#2365df;
+}
+
+.btn.gray{
+    background:#202938;
+}
+
+.btn.red{
+    background:#d93636;
+}
+
+.title{
+    font-size:35px;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    color:#999;
+    margin-bottom:25px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:18px;
+}
+
+.card{
+    background:#101621;
+    border:1px solid #202b3b;
+    border-radius:14px;
+    padding:22px;
+}
+
+.card h3{
+    margin-bottom:10px;
+}
+
+.card p{
+    color:#aaa;
+    line-height:1.5;
+}
+
+.course-card{
+    cursor:pointer;
+    transition:.2s;
+}
+
+.course-card:hover{
+    transform:translateY(-4px);
+    border-color:#367cff;
+}
+
+.course-icon{
+    font-size:40px;
+    margin-bottom:12px;
+}
+
+.course-buttons{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:20px;
+}
+
+.lesson-layout{
+    display:grid;
+    grid-template-columns:270px 1fr;
+    gap:20px;
+}
+
+.lesson-list{
+    background:#101621;
+    border:1px solid #202b3b;
+    border-radius:12px;
+    padding:12px;
+    max-height:650px;
+    overflow-y:auto;
+}
+
+.lesson-item{
+    width:100%;
+    text-align:left;
+    background:#151d2a;
+    color:#aaa;
+    border:0;
+    padding:12px;
+    margin-bottom:6px;
+    border-radius:7px;
+    cursor:pointer;
+}
+
+.lesson-item:hover{
+    color:white;
+}
+
+.lesson-item.active{
+    background:#367cff;
+    color:white;
+}
+
+.lesson-item.completed{
+    color:#61df8c;
+}
+
+.lesson-item.locked{
+    color:#555;
+    cursor:not-allowed;
+}
+
+.lesson-content{
+    background:#101621;
+    border:1px solid #202b3b;
+    border-radius:12px;
+    padding:25px;
+}
+
+.lesson-content h2{
+    margin-bottom:15px;
+}
+
+.lesson-content p{
+    color:#bbb;
+    line-height:1.7;
+    margin-bottom:15px;
+}
+
+.code{
+    background:#070a0f;
+    border:1px solid #202838;
+    padding:18px;
+    border-radius:10px;
+    overflow:auto;
+    margin:15px 0;
+    color:#d8e6ff;
+    white-space:pre-wrap;
+}
+
+.task{
+    background:#151d2a;
+    padding:18px;
+    border-radius:10px;
+    margin-top:20px;
+}
+
+textarea{
+    width:100%;
+    min-height:150px;
+    background:#080b12;
+    color:white;
+    border:1px solid #29364a;
+    border-radius:8px;
+    padding:15px;
+    resize:vertical;
+    margin-top:10px;
+    font-family:monospace;
+}
+
+input,select{
+    width:100%;
+    background:#080b12;
+    color:white;
+    border:1px solid #29364a;
+    border-radius:8px;
+    padding:12px;
+    margin:7px 0;
+}
+
+.auth{
+    width:100%;
+    max-width:420px;
+    margin:40px auto;
+    background:#101621;
+    border:1px solid #202b3b;
+    border-radius:15px;
+    padding:30px;
+}
+
+.auth h2{
+    margin-bottom:20px;
+}
+
+.auth-switch{
+    color:#6ea8ff;
+    cursor:pointer;
+    margin-top:15px;
+    text-align:center;
+}
+
+.progress{
+    height:12px;
+    background:#202938;
+    border-radius:20px;
+    overflow:hidden;
+    margin:10px 0;
+}
+
+.progress-bar{
+    height:100%;
+    background:#367cff;
+    width:0%;
+}
+
+.stat{
+    text-align:center;
+}
+
+.stat-number{
+    font-size:35px;
+    color:#6ea8ff;
+    font-weight:bold;
+}
+
+.search{
+    width:100%;
+    max-width:600px;
+    margin-bottom:20px;
+}
+
+.kit{
+    background:#101621;
+    border:1px solid #202b3b;
+    border-radius:12px;
+    padding:20px;
+    margin-bottom:20px;
+}
+
+.kit-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#151d2a;
+    padding:10px;
+    margin:7px 0;
+    border-radius:8px;
+}
+
+.playground{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.play-box textarea{
+    min-height:220px;
+}
+
+.preview{
+    width:100%;
+    height:400px;
+    background:white;
+    border:0;
+    border-radius:10px;
+}
+
+.tool-box{
+    max-width:500px;
+}
+
+.color-preview{
+    width:100%;
+    height:120px;
+    border-radius:10px;
+    margin-top:10px;
+    border:1px solid #333;
+}
+
+footer{
+    text-align:center;
+    color:#666;
+    padding:30px;
+}
+
+@media(max-width:800px){
+
+    nav{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .lesson-layout{
+        grid-template-columns:1fr;
+    }
+
+    .playground{
+        grid-template-columns:1fr;
+    }
+
+    .hero h1{
+        font-size:45px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+
+<div class="logo">NEXORA</div>
+
+<div class="nav-links">
+
+<button onclick="showPage('home')">Home</button>
+<button onclick="showPage('projects')">Projects</button>
+<button onclick="showPage('learning')">Learning</button>
+<button onclick="showPage('coding')">Coding</button>
+<button onclick="showPage('arduino')">Arduino Lab</button>
+<button onclick="showPage('tools')">Tools</button>
+<button onclick="showPage('dashboard')">Dashboard</button>
+<button onclick="showPage('about')">About</button>
+
+</div>
+
+<div class="user-box">
+
+<span id="navUser" class="user-name">Guest</span>
+
+<button class="btn" onclick="showPage('account')">
+Account
+</button>
+
+</div>
+
+</nav>
+
+
+<!-- HOME -->
+
+<section id="home" class="page active">
+
+<div class="hero">
+
+<h1>NEXORA</h1>
+
+<p>
+Learn programming, build projects and explore technology.
+HTML, CSS, JavaScript, C++ and Arduino — all in one place.
+</p>
+
+<br>
+
+<button class="btn" onclick="showPage('learning')">
+Start Learning
+</button>
+
+<button class="btn gray" onclick="showPage('projects')">
+Explore Projects
+</button>
+
+</div>
+
+</section>
+
+
+<!-- PROJECTS -->
+
+<section id="projects" class="page">
+
+<h1 class="title">Projects</h1>
+<p class="subtitle">NEXORA project ideas</p>
+
+<div class="grid">
+
+<div class="card">
+<h3>🌐 Personal Website</h3>
+<p>HTML, CSS va JavaScript yordamida o'z web saytingni yarat.</p>
+</div>
+
+<div class="card">
+<h3>🤖 Arduino Quiz</h3>
+<p>Arduino Uno, LCD, LED va tugmalar yordamida quiz qurilmasi.</p>
+</div>
+
+<div class="card">
+<h3>🚗 Arduino Robot</h3>
+<p>Motorlar va sensorlar yordamida robot yasash.</p>
+</div>
+
+<div class="card">
+<h3>🎮 Roblox Game</h3>
+<p>Roblox Studio orqali o'z o'yiningni yarat.</p>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- LEARNING -->
+
+<section id="learning" class="page">
+
+<h1 class="title">Learning</h1>
+
+<p class="subtitle">
+Kursni tanla va darslarni ketma-ket o'rgan.
+</p>
+
+<div class="course-buttons">
+
+<button class="btn" onclick="openCourse('HTML')">
+🌐 HTML
+</button>
+
+<button class="btn" onclick="openCourse('CSS')">
+🎨 CSS
+</button>
+
+<button class="btn" onclick="openCourse('JavaScript')">
+⚡ JavaScript
+</button>
+
+<button class="btn" onclick="openCourse('C++')">
+💻 C++
+</button>
+
+</div>
+
+<div class="lesson-layout">
+
+<div>
+
+<div class="lesson-list" id="lessonList">
+Kursni tanlang.
+</div>
+
+</div>
+
+<div class="lesson-content">
+
+<div id="lessonContent">
+
+<h2>📚 Kursni tanlang</h2>
+
+<p>
+Yuqoridagi HTML, CSS, JavaScript yoki C++ tugmasini bosing.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- CODING -->
+
+<section id="coding" class="page">
+
+<h1 class="title">Coding Playground</h1>
+
+<p class="subtitle">
+HTML + CSS + JavaScript kodlaringni shu yerda sinab ko'r.
+</p>
+
+<div class="playground">
+
+<div class="play-box">
+
+<h3>HTML</h3>
+
+<textarea id="htmlCode"><h1>Salom NEXORA</h1>
+<p>Men web dasturchiman.</p></textarea>
+
+<h3>CSS</h3>
+
+<textarea id="cssCode">h1{
+color:blue;
+}</textarea>
+
+<h3>JavaScript</h3>
+
+<textarea id="jsCode">console.log("Salom");</textarea>
+
+<button class="btn" onclick="runCode()">
+▶ Run
+</button>
+
+</div>
+
+<div>
+
+<h3>Preview</h3>
+
+<br>
+
+<iframe id="preview" class="preview"></iframe>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ARDUINO -->
+
+<section id="arduino" class="page">
+
+<h1 class="title">Arduino Lab</h1>
+
+<p class="subtitle">
+Arduino qismlarini top, tanla va My Kit ga qo'sh.
+</p>
+
+<input
+id="arduinoSearch"
+class="search"
+placeholder="🔎 Arduino qismini qidir..."
+oninput="searchArduino()"
+>
+
+<button class="btn" onclick="showKit()">
+🛒 My Kit <span id="kitCount">0</span>
+</button>
+
+<div id="kitBox" class="kit" style="display:none"></div>
+
+<div id="arduinoGrid" class="grid"></div>
+
+</section>
+
+
+<!-- TOOLS -->
+
+<section id="tools" class="page">
+
+<h1 class="title">Tools</h1>
+
+<div class="grid">
+
+<div class="card tool-box">
+
+<h3>🧮 Calculator</h3>
+
+<input id="calcInput" placeholder="Masalan: 10+5*2">
+
+<button class="btn" onclick="calculate()">
+Hisobla
+</button>
+
+<h3 id="calcResult"></h3>
+
+</div>
+
+<div class="card tool-box">
+
+<h3>🎨 Color Picker</h3>
+
+<input
+type="color"
+id="colorPicker"
+value="#367cff"
+oninput="changeColor()"
+>
+
+<div
+id="colorPreview"
+class="color-preview"
+style="background:#367cff">
+</div>
+
+<p id="colorText">#367cff</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- DASHBOARD -->
+
+<section id="dashboard" class="page">
+
+<h1 class="title">Dashboard</h1>
+
+<p class="subtitle">
+O'z progress-ingni kuzat.
+</p>
+
+<div class="grid">
+
+<div class="card stat">
+
+<div class="stat-number" id="xpValue">
+0
+</div>
+
+<p>XP</p>
+
+</div>
+
+<div class="card stat">
+
+<div class="stat-number" id="completedValue">
+0
+</div>
+
+<p>Completed Lessons</p>
+
+</div>
+
+<div class="card stat">
+
+<div class="stat-number" id="progressValue">
+0%
+</div>
+
+<p>Overall Progress</p>
+
+</div>
+
+</div>
+
+<br>
+
+<div class="card">
+
+<h3>Learning Progress</h3>
+
+<div class="progress">
+
+<div
+id="dashboardProgress"
+class="progress-bar">
+</div>
+
+</div>
+
+<p id="progressText">
+0 / 0 lessons
+</p>
+
+</div>
+
+</section>
+
+
+<!-- ACCOUNT -->
+
+<section id="account" class="page">
+
+<div class="auth" id="loginBox">
+
+<h2>🔐 Login</h2>
+
+<input
+id="loginUsername"
+placeholder="Username"
+>
+
+<input
+id="loginPassword"
+type="password"
+placeholder="Password"
+>
+
+<button class="btn" onclick="login()">
+Login
+</button>
+
+<p
+class="auth-switch"
+onclick="showRegister()">
+Akkauntingiz yo'qmi? Register
+</p>
+
+</div>
+
+
+<div class="auth" id="registerBox" style="display:none">
+
+<h2>📝 Register</h2>
+
+<input
+id="registerUsername"
+placeholder="Username"
+>
+
+<input
+id="registerPassword"
+type="password"
+placeholder="Password"
+>
+
+<input
+id="registerPassword2"
+type="password"
+placeholder="Password again"
+>
+
+<button class="btn" onclick="register()">
+Create Account
+</button>
+
+<p
+class="auth-switch"
+onclick="showLogin()">
+Akkauntingiz bormi? Login
+</p>
+
+</div>
+
+
+<div
+class="auth"
+id="accountInfo"
+style="display:none">
+
+<h2>👤 My Account</h2>
+
+<p>
+Username:
+<strong id="accountUsername"></strong>
+</p>
+
+<br>
+
+<p>
+XP:
+<strong id="accountXP">0</strong>
+</p>
+
+<br>
+
+<button
+class="btn red"
+onclick="logout()">
+Logout
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section id="about" class="page">
+
+<h1 class="title">About NEXORA</h1>
+
+<div class="card">
+
+<h2>NEXORA nima?</h2>
+
+<br>
+
+<p>
+NEXORA — dasturlash va texnologiyalarni
+o'rganish uchun yaratilgan learning platforma.
+</p>
+
+<br>
+
+<p>
+Bu yerda HTML, CSS, JavaScript, C++,
+Arduino va boshqa texnologiyalarni
+bosqichma-bosqich o'rganish mumkin.
+</p>
+
+<br>
+
+<h3>🎯 Maqsad</h3>
+
+<br>
+
+<p>
+Har bir mavzuni o'rganish → masalani bajarish
+→ XP olish → keyingi mavzuga o'tish.
+</p>
+
+</div>
+
+</section>
+
+
+<footer>
+NEXORA © 2026
+</footer>
+
+
+<script>
+
+
+/* =========================
+PAGE SYSTEM
+========================= */
+
+function showPage(page)
+{
+    let pages=document.querySelectorAll(".page");
+
+    pages.forEach(function(p)
+    {
+        p.classList.remove("active");
+    });
+
+    document.getElementById(page).classList.add("active");
+
+    window.scrollTo(0,0);
+
+    updateAccountUI();
+    updateDashboard();
+}
+
+
+/* =========================
+ACCOUNT
+========================= */
+
+let accounts=JSON.parse(localStorage.getItem("nexoraAccounts")) || {};
+
+let currentUser=localStorage.getItem("nexoraCurrentUser") || "";
+
+
+function saveAccounts()
+{
+    localStorage.setItem(
+        "nexoraAccounts",
+        JSON.stringify(accounts)
+    );
+}
+
+
+function register()
+{
+    let username=document.getElementById("registerUsername").value.trim();
+
+    let password=document.getElementById("registerPassword").value;
+
+    let password2=document.getElementById("registerPassword2").value;
+
+    if(username=="")
+    {
+        alert("Username kiriting!");
+        return;
+    }
+
+    if(password=="")
+    {
+        alert("Password kiriting!");
+        return;
+    }
+
+    if(password!=password2)
+    {
+        alert("Passwordlar bir xil emas!");
+        return;
+    }
+
+    if(accounts[username])
+    {
+        alert("Bu username allaqachon mavjud!");
+        return;
+    }
+
+    accounts[username]=
+    {
+        password:password,
+        xp:0,
+
+        completed:
+        {
+            HTML:[],
+            CSS:[],
+            JavaScript:[],
+            "C++":[]
+        },
+
+        kit:[]
+    };
+
+    saveAccounts();
+
+    currentUser=username;
+
+    localStorage.setItem(
+        "nexoraCurrentUser",
+        currentUser
+    );
+
+    alert("✅ Account yaratildi!");
+
+    updateAccountUI();
+
+    showPage("dashboard");
+}
+
+
+function login()
+{
+    let username=document.getElementById("loginUsername").value.trim();
+
+    let password=document.getElementById("loginPassword").value;
+
+    if(!accounts[username])
+    {
+        alert("Username topilmadi!");
+        return;
+    }
+
+    if(accounts[username].password!=password)
+    {
+        alert("Password xato!");
+        return;
+    }
+
+    currentUser=username;
+
+    localStorage.setItem(
+        "nexoraCurrentUser",
+        currentUser
+    );
+
+    alert("✅ Login successful!");
+
+    updateAccountUI();
+
+    showPage("dashboard");
+}
+
+
+function logout()
+{
+    currentUser="";
+
+    localStorage.removeItem(
+        "nexoraCurrentUser"
+    );
+
+    updateAccountUI();
+
+    showPage("home");
+}
+
+
+function showRegister()
+{
+    document.getElementById("loginBox").style.display="none";
+
+    document.getElementById("registerBox").style.display="block";
+}
+
+
+function showLogin()
+{
+    document.getElementById("registerBox").style.display="none";
+
+    document.getElementById("loginBox").style.display="block";
+}
+
+
+function updateAccountUI()
+{
+    let navUser=document.getElementById("navUser");
+
+    if(currentUser && accounts[currentUser])
+    {
+        navUser.innerText=currentUser;
+
+        document.getElementById("loginBox").style.display="none";
+
+        document.getElementById("registerBox").style.display="none";
+
+        document.getElementById("accountInfo").style.display="block";
+
+        document.getElementById("accountUsername").innerText=currentUser;
+
+        document.getElementById("accountXP").innerText=
+            accounts[currentUser].xp;
+    }
+    else
+    {
+        navUser.innerText="Guest";
+
+        document.getElementById("loginBox").style.display="block";
+
+        document.getElementById("registerBox").style.display="none";
+
+        document.getElementById("accountInfo").style.display="none";
+    }
+}
+
+
+/* =========================
+COURSES
+========================= */
+
+let courses=
+{
+
+HTML:
+[
+["HTML nima?","HTML web sahifaning tuzilishini yaratadi.","<h1>Salom</h1>","h1"],
+["HTML document","HTML faylning asosiy tuzilmasini o'rgan.","<!DOCTYPE html>","DOCTYPE"],
+["h1","Eng katta sarlavha yarat.","<h1>Salom</h1>","h1"],
+["h2-h6","Kichikroq sarlavhalarni yarat.","<h2>Salom</h2>","h2"],
+["p","Paragraph yarat.","<p>Salom</p>","p"],
+["br","Qatorni yangi qatorga o'tkaz.","Salom<br>Dunyo","br"],
+["b","Matnni qalin qil.","<b>Salom</b>","b"],
+["i","Matnni qiya qil.","<i>Salom</i>","i"],
+["u","Matn tagiga chiziq qo'y.","<u>Salom</u>","u"],
+["s","Matnni ustidan chiziq o'tkaz.","<s>Salom</s>","s"],
+["strong","Muhim matn yarat.","<strong>Salom</strong>","strong"],
+["em","Emphasis matn yarat.","<em>Salom</em>","em"],
+["small","Kichik matn yarat.","<small>Salom</small>","small"],
+["mark","Matnni belgilab ko'rsat.","<mark>Salom</mark>","mark"],
+["a","Link yarat.","<a href='#'>Link</a>","href"],
+["img","Rasm chiqar.","<img src='rasm.jpg'>","img"],
+["button","Tugma yarat.","<button>Salom</button>","button"],
+["input","Input yarat.","<input>","input"],
+["form","Form yarat.","<form></form>","form"],
+["ul","Tartibsiz ro'yxat.","<ul></ul>","ul"],
+["ol","Tartibli ro'yxat.","<ol></ol>","ol"],
+["table","Jadval yarat.","<table></table>","table"],
+["div","Blok yarat.","<div></div>","div"],
+["class","Elementga class ber.","<div class='box'>","class"],
+["id","Elementga id ber.","<div id='box'>","id"],
+["header","Header qismi.","<header></header>","header"],
+["nav","Navigation qismi.","<nav></nav>","nav"],
+["main","Asosiy qism.","<main></main>","main"],
+["section","Section yarat.","<section></section>","section"],
+["footer","Footer yarat.","<footer></footer>","footer"],
+["HTML Mini Project","Oddiy web sahifa yarat.","<h1>NEXORA</h1>","h1"]
+],
+
+CSS:
+[
+["CSS nima?","CSS web sahifani bezash uchun ishlatiladi.","color:red;","color"],
+["color","Matn rangini o'zgartir.","color:red;","color"],
+["background","Fon rangini o'zgartir.","background:blue;","background"],
+["font-size","Matn hajmini o'zgartir.","font-size:20px;","font-size"],
+["font-family","Shriftni o'zgartir.","font-family:Arial;","font-family"],
+["text-align","Matnni joylashtir.","text-align:center;","text-align"],
+["margin","Tashqi bo'shliq.","margin:20px;","margin"],
+["padding","Ichki bo'shliq.","padding:20px;","padding"],
+["border","Chegara yarat.","border:1px solid black;","border"],
+["width","Enni o'zgartir.","width:200px;","width"],
+["height","Balandlikni o'zgartir.","height:100px;","height"],
+["border-radius","Burchaklarni yumaloq qil.","border-radius:10px;","border-radius"],
+["box-shadow","Soyani yarat.","box-shadow:0 0 10px black;","box-shadow"],
+["display","Display qiymatini o'zgartir.","display:block;","display"],
+["flex","Flexbox ishlat.","display:flex;","flex"],
+["justify-content","Elementlarni gorizontal joylashtir.","justify-content:center;","justify-content"],
+["align-items","Elementlarni vertikal joylashtir.","align-items:center;","align-items"],
+["gap","Elementlar orasidagi masofa.","gap:10px;","gap"],
+["grid","Grid ishlat.","display:grid;","grid"],
+["position","Element joylashuvini boshqar.","position:relative;","position"],
+["hover","Sichqoncha ustiga kelganda o'zgartir.","button:hover{}","hover"],
+["transition","Animatsion o'tishni yarat.","transition:0.3s;","transition"],
+["animation","Animation ishlat.","animation:test 2s;","animation"],
+["responsive","Telefon uchun moslash.","@media(max-width:600px){}","@media"],
+["CSS Mini Project","Card dizayn qil.",".card{color:white;}","card"]
+],
+
+JavaScript:
+[
+["console.log","Console ga ma'lumot chiqar.","console.log('Salom');","console.log"],
+["let","O'zgaruvchi yarat.","let a=5;","let"],
+["const","O'zgarmas o'zgaruvchi.","const a=5;","const"],
+["string","Matn bilan ishlash.","let a='Salom';","string"],
+["number","Son bilan ishlash.","let a=10;","number"],
+["boolean","true yoki false qiymat.","let a=true;","true"],
+["+ operator","Sonlarni qo'sh.","let a=5+3;","+"],
+["- operator","Sonlarni ayir.","let a=5-3;","-"],
+["* operator","Sonlarni ko'paytir.","let a=5*3;","*"],
+["/ operator","Sonlarni bo'l.","let a=6/3;","/"],
+["if","Shart tekshir.","if(a>5){}","if"],
+["else","Aks holdagi shart.","else{}","else"],
+["else if","Qo'shimcha shart.","else if(a>5){}","else if"],
+["for","Takrorlash.","for(let i=0;i<5;i++){}","for"],
+["while","Shart asosida takrorlash.","while(a<5){}","while"],
+["function","Function yarat.","function salom(){}","function"],
+["return","Qiymat qaytar.","return a;","return"],
+["array","Massiv yarat.","let a=[1,2,3];","["],
+["index","Array elementiga murojaat.","a[0]","[0]"],
+["push","Arrayga element qo'sh.","a.push(5);","push"],
+["object","Object yarat.","let user={name:'Ali'};","object"],
+["DOM","HTML elementini JS bilan boshqar.","document.getElementById('box')","getElementById"],
+["textContent","Element matnini o'zgartir.","box.textContent='Salom';","textContent"],
+["click event","Click hodisasini ishlat.","onclick","onclick"],
+["input event","Input hodisasini ishlat.","oninput","oninput"],
+["classList","Classni JS orqali boshqar.","classList.add('box')","classList"],
+["setTimeout","Kechiktirib kod ishlat.","setTimeout(function(){},1000);","setTimeout"],
+["Math","Matematik amallar.","Math.max(5,10)","Math"],
+["Mini Project","Oddiy JS loyiha.","document.getElementById('box')","getElementById"]
+],
+
+"C++":
+[
+["cout","Ekranga ma'lumot chiqar.","cout<<\"Salom\";","cout"],
+["int","Butun son o'zgaruvchi.","int a;","int"],
+["cin","Foydalanuvchidan ma'lumot ol.","cin>>a;","cin"],
+["+ operator","Ikki sonni qo'sh.","cout<<a+b;","+"],
+["- operator","Ikki sonni ayir.","cout<<a-b;","-"],
+["* operator","Ikki sonni ko'paytir.","cout<<a*b;","*"],
+["/ operator","Ikki sonni bo'l.","cout<<a/b;","/"],
+["% operator","Qoldiqni top.","cout<<a%b;","%"],
+["double","Kasr son bilan ishlash.","double a;","double"],
+["char","Bitta belgi saqlash.","char a;","char"],
+["string","Matn saqlash.","string a;","string"],
+["bool","true yoki false saqlash.","bool a;","bool"],
+["if","Shart tekshirish.","if(a>5){}","if"],
+["else","Aks holdagi shart.","else{}","else"],
+["else if","Qo'shimcha shart.","else if(a>5){}","else if"],
+["for","Takrorlash.","for(int i=0;i<5;i++){}","for"],
+["while","Shart asosida takrorlash.","while(a<5){}","while"],
+["do while","Kamida bir marta ishlaydigan loop.","do{}while(a<5);","do"],
+["array","Massiv yaratish.","int a[5];","a["],
+["Array input","Arrayga qiymat kiritish.","cin>>a[i];","cin>>a[i]"],
+["vector","Dynamic massiv.","vector<int> a;","vector"],
+["push_back","Vector oxiriga element qo'shish.","a.push_back(5);","push_back"],
+["size","Vector hajmini topish.","a.size();","size"],
+["function","Alohida function yaratish.","void salom(){}","void"],
+["return","Functiondan qiymat qaytarish.","return a;","return"],
+["max","Katta qiymatni topish.","max(a,b)","max"],
+["min","Kichik qiymatni topish.","min(a,b)","min"],
+["swap","Ikki qiymatni almashtirish.","swap(a,b);","swap"],
+["sort","Massivni tartiblash.","sort(a,a+n);","sort"],
+["find","Element qidirish.","find(a,a+n,5);","find"],
+["string find","String ichidan so'z qidirish.","s.find(\"salom\")","find"],
+["gcd","EKUB topish.","gcd(a,b)","gcd"],
+["map","Key-value ma'lumot saqlash.","map<string,int> a;","map"],
+["pair","Ikki qiymatni birga saqlash.","pair<int,int> a;","pair"],
+["prefix sum","Yig'indilarni oldindan hisoblash.","p[i]=p[i-1]+a[i];","prefix"],
+["binary search","Binary search ishlatish.","binary_search(a,a+n,5);","binary_search"],
+["recursion","Function o'zini chaqiradi.","void f(){f();}","f("],
+["struct","O'z data type yaratish.","struct User{};","struct"],
+["algorithm","Algorithm kutubxonasidan foydalanish.","#include<algorithm>","algorithm"],
+["Mini Project","C++ mini loyiha.","cin>>a; cout<<a;","cin"]
+]
+
+};
+
+
+/* =========================
+LEARNING SYSTEM
+========================= */
+
+let currentCourse="";
+let currentLesson=0;
+
+
+function openCourse(course)
+{
+    currentCourse=course;
+    currentLesson=0;
+
+    renderLessons();
+
+    openLesson(0);
+}
+
+
+function renderLessons()
+{
+    let list=document.getElementById("lessonList");
+
+    list.innerHTML="";
+
+    if(currentCourse=="")
+    {
+        list.innerText="Kursni tanlang.";
+        return;
+    }
+
+    let data=courses[currentCourse];
+
+    let completed=[];
+
+    if(currentUser && accounts[currentUser])
+    {
+        completed=
+        accounts[currentUser].completed[currentCourse] || [];
+    }
+
+    data.forEach(function(lesson,index)
+    {
+        let button=document.createElement("button");
+
+        button.className="lesson-item";
+
+        if(completed.includes(index))
+        {
+            button.classList.add("completed");
+
+            button.innerText=
+                "✓ "+(index+1)+". "+lesson[0];
+        }
+
+        else if(index>0 && !completed.includes(index-1))
+        {
+            button.classList.add("locked");
+
+            button.innerText=
+                "🔒 "+(index+1)+". "+lesson[0];
+        }
+
+        else
+        {
+            button.innerText=
+                (index+1)+". "+lesson[0];
+        }
+
+        if(index==currentLesson)
+        {
+            button.classList.add("active");
+        }
+
+        button.onclick=function()
+        {
+            openLesson(index);
+        };
+
+        list.appendChild(button);
+    });
+}
+
+
+function openLesson(index)
+{
+    let completed=[];
+
+    if(currentUser && accounts[currentUser])
+    {
+        completed=
+        accounts[currentUser].completed[currentCourse] || [];
+    }
+
+    if(index>0 && !completed.includes(index-1))
+    {
+        alert("🔒 Avval oldingi darsni tugating!");
+        return;
+    }
+
+    currentLesson=index;
+
+    renderLessons();
+
+    let lesson=courses[currentCourse][index];
+
+    let content=document.getElementById("lessonContent");
+
+    content.innerHTML=
+
+    "<h2>"+(index+1)+". "+lesson[0]+"</h2>"+
+
+    "<p>"+lesson[1]+"</p>"+
+
+    "<div class='code'>"+
+    escapeHTML(lesson[2])+
+    "</div>"+
+
+    "<div class='task'>"+
+
+    "<h3>🎯 Masala</h3>"+
+
+    "<br>"+
+
+    "<p>"+
+    getTask(currentCourse,index,lesson[0])+
+    "</p>"+
+
+    "<textarea id='answerBox' placeholder='Javobingizni shu yerga yozing...'></textarea>"+
+
+    "<button class='btn' onclick='checkAnswer()'>"+
+    "Tekshirish"+
+    "</button>"+
+
+    "</div>";
+}
+
+
+function getTask(course,index,title)
+{
+    if(course=="C++")
+    {
+        if(index==0)
+        {
+            return "cout yordamida Salom so'zini chiqaring.";
+        }
+
+        if(index==1)
+        {
+            return "int yordamida a nomli butun son yarating.";
+        }
+
+        if(index==2)
+        {
+            return "cin yordamida a o'zgaruvchisini kiriting.";
+        }
+
+        if(index==3)
+        {
+            return "a va b sonlarini qo'shib chiqaring.";
+        }
+
+        if(index==13)
+        {
+            return "else yordamida aks holdagi shart yozing.";
+        }
+
+        if(index==23)
+        {
+            return "salom nomli function yarating.";
+        }
+
+        if(index==31)
+        {
+            return "Ikki sonning EKUBini gcd yordamida toping.";
+        }
+
+        return title+
+        " mavzusidan foydalanib kichik kod yozing.";
+    }
+
+    if(course=="HTML")
+    {
+        return title+
+        " mavzusidan foydalanib HTML kod yozing.";
+    }
+
+    if(course=="CSS")
+    {
+        return title+
+        " mavzusidan foydalanib CSS kod yozing.";
+    }
+
+    if(course=="JavaScript")
+    {
+        return title+
+        " mavzusidan foydalanib JavaScript kod yozing.";
+    }
+
+    return "Topshiriqni bajaring.";
+}
+
+
+function checkAnswer()
+{
+    if(!currentUser)
+    {
+        alert("🎯 XP olish uchun avval Account yarating yoki Login qiling!");
+
+        showPage("account");
+
+        return;
+    }
+
+    let answer=
+        document.getElementById("answerBox").value.trim();
+
+    let lesson=
+        courses[currentCourse][currentLesson];
+
+    let keyword=lesson[3];
+
+    if(answer.includes(keyword))
+    {
+        let completed=
+            accounts[currentUser].completed[currentCourse];
+
+        if(!completed.includes(currentLesson))
+        {
+            completed.push(currentLesson);
+
+            accounts[currentUser].xp+=10;
+
+            saveAccounts();
+
+            alert("✅ To'g'ri! +10 XP");
+
+            renderLessons();
+
+            updateDashboard();
+
+            updateAccountUI();
+
+            if(currentLesson+1<courses[currentCourse].length)
+            {
+                setTimeout(function()
+                {
+                    openLesson(currentLesson+1);
+                },500);
+            }
+            else
+            {
+                alert("🎉 Kurs tugadi!");
+            }
+        }
+
+        else
+        {
+            alert("Bu dars allaqachon tugatilgan!");
+        }
+    }
+
+    else
+    {
+        alert(
+            "❌ Noto'g'ri.\nMavzuni yana bir marta ko'rib chiqing."
+        );
+    }
+}
+
+
+function escapeHTML(text)
+{
+    return text
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;");
+}
+
+
+/* =========================
+DASHBOARD
+========================= */
+
+function updateDashboard()
+{
+    if(!currentUser || !accounts[currentUser])
+    {
+        document.getElementById("xpValue").innerText="0";
+
+        document.getElementById("completedValue").innerText="0";
+
+        document.getElementById("progressValue").innerText="0%";
+
+        document.getElementById("dashboardProgress").style.width="0%";
+
+        document.getElementById("progressText").innerText=
+            "0 / 0 lessons";
+
+        return;
+    }
+
+    let user=accounts[currentUser];
+
+    let total=0;
+
+    let completed=0;
+
+    for(let course in courses)
+    {
+        total+=courses[course].length;
+
+        completed+=user.completed[course].length;
+    }
+
+    let percent=0;
+
+    if(total>0)
+    {
+        percent=Math.floor(
+            completed/total*100
+        );
+    }
+
+    document.getElementById("xpValue").innerText=
+        user.xp;
+
+    document.getElementById("completedValue").innerText=
+        completed;
+
+    document.getElementById("progressValue").innerText=
+        percent+"%";
+
+    document.getElementById("dashboardProgress").style.width=
+        percent+"%";
+
+    document.getElementById("progressText").innerText=
+        completed+" / "+total+" lessons";
+}
+
+
+/* =========================
+CODING PLAYGROUND
+========================= */
+
+function runCode()
+{
+    let html=
+        document.getElementById("htmlCode").value;
+
+    let css=
+        document.getElementById("cssCode").value;
+
+    let js=
+        document.getElementById("jsCode").value;
+
+    let result=
+        html+
+        "<style>"+
+        css+
+        "</style>"+
+        "<script>"+
+        js+
+        "<\/script>";
+
+    document.getElementById("preview").srcdoc=result;
+}
+
+
+/* =========================
+ARDUINO
+========================= */
+
+let arduinoParts=
+[
+["🔌","Arduino Uno","Arduino loyihalarining asosiy plata."],
+["🟩","Breadboard","Sxemani lehimsiz yig'ish uchun."],
+["🔗","Jumper Wires","Arduino qismlarini ulash uchun simlar."],
+["💡","LED","Yorug'lik indikatori."],
+["🌈","RGB LED","Bir nechta rang chiqaruvchi LED."],
+["🔘","Push Button","Tugma orqali signal berish."],
+["🔊","Buzzer","Ovoz chiqarish uchun."],
+["⚙️","Servo Motor","Burchak bo'yicha boshqariladigan motor."],
+["📡","HC-SR04","Masofani o'lchaydigan ultratovush sensori."],
+["🖥️","LCD 16x2 I2C","Matn chiqarish uchun ekran."],
+["🪪","RFID RC522","RFID kartalarni o'qish uchun."],
+["🌡️","DHT22","Harorat va namlik sensori."],
+["🟤","220Ω Resistor","LED uchun rezistor."],
+["🎚️","Potentiometer","Analog qiymatni boshqar."],
+["🔄","DC Motor","Aylanuvchi motor."],
+["⚡","L298N","Motorlarni boshqarish moduli."],
+["🔋","18650 Battery","Quvvat manbai."]
+];
+
+
+function renderArduino()
+{
+    let grid=
+        document.getElementById("arduinoGrid");
+
+    grid.innerHTML="";
+
+    arduinoParts.forEach(function(part)
+    {
+        let card=document.createElement("div");
+
+        card.className="card arduino-card";
+
+        card.innerHTML=
+
+        "<div class='course-icon'>"+
+        part[0]+
+        "</div>"+
+
+        "<h3>"+part[1]+"</h3>"+
+
+        "<p>"+part[2]+"</p>"+
+
+        "<button class='btn' onclick=\"addToKit('"+
+        part[1]+
+        "')\">"+
+        "➕ Add to Kit"+
+        "</button>";
+
+        grid.appendChild(card);
+    });
+}
+
+
+function searchArduino()
+{
+    let search=
+        document.getElementById("arduinoSearch")
+        .value
+        .toLowerCase();
+
+    let cards=
+        document.querySelectorAll(".arduino-card");
+
+    cards.forEach(function(card)
+    {
+        let text=
+            card.innerText.toLowerCase();
+
+        if(text.includes(search))
+        {
+            card.style.display="block";
+        }
+        else
+        {
+            card.style.display="none";
+        }
+    });
+}
+
+
+function getKit()
+{
+    if(!currentUser)
+    {
+        return [];
+    }
+
+    return accounts[currentUser].kit;
+}
+
+
+function addToKit(name)
+{
+    if(!currentUser)
+    {
+        alert("My Kit ishlatish uchun Accountga kiring!");
+
+        showPage("account");
+
+        return;
+    }
+
+    let kit=
+        accounts[currentUser].kit;
+
+    if(!kit.includes(name))
+    {
+        kit.push(name);
+
+        saveAccounts();
+
+        updateKit();
+
+        alert("✅ "+name+" My Kit ga qo'shildi!");
+    }
+
+    else
+    {
+        alert("Bu detal allaqachon Kitda!");
+    }
+}
+
+
+function removeFromKit(name)
+{
+    let kit=
+        accounts[currentUser].kit;
+
+    accounts[currentUser].kit=
+        kit.filter(function(item)
+        {
+            return item!=name;
+        });
+
+    saveAccounts();
+
+    updateKit();
+}
+
+
+function clearKit()
+{
+    if(!currentUser)
+    {
+        return;
+    }
+
+    accounts[currentUser].kit=[];
+
+    saveAccounts();
+
+    updateKit();
+}
+
+
+function updateKit()
+{
+    let kit=[];
+
+    if(currentUser)
+    {
+        kit=accounts[currentUser].kit;
+    }
+
+    document.getElementById("kitCount").innerText=
+        kit.length;
+
+    let box=
+        document.getElementById("kitBox");
+
+    if(kit.length==0)
+    {
+        box.innerHTML="<p>My Kit hozircha bo'sh.</p>";
+        return;
+    }
+
+    box.innerHTML="<h3>🛒 My Kit</h3>";
+
+    kit.forEach(function(item)
+    {
+        let div=document.createElement("div");
+
+        div.className="kit-item";
+
+        div.innerHTML=
+            "<span>"+item+"</span>"+
+
+            "<button class='btn red' onclick=\"removeFromKit('"+
+            item+
+            "')\">"+
+            "Remove"+
+            "</button>";
+
+        box.appendChild(div);
+    });
+
+    let clear=document.createElement("button");
+
+    clear.className="btn gray";
+
+    clear.innerText="Clear Kit";
+
+    clear.onclick=clearKit;
+
+    box.appendChild(clear);
+}
+
+
+function showKit()
+{
+    let box=
+        document.getElementById("kitBox");
+
+    if(!currentUser)
+    {
+        alert("Avval Accountga kiring!");
+
+        showPage("account");
+
+        return;
+    }
+
+    if(box.style.display=="none")
+    {
+        box.style.display="block";
+    }
+    else
+    {
+        box.style.display="none";
+    }
+
+    updateKit();
+}
+
+
+/* =========================
+TOOLS
+========================= */
+
+function calculate()
+{
+    let value=
+        document.getElementById("calcInput").value;
+
+    try
+    {
+        let result=eval(value);
+
+        document.getElementById("calcResult").innerText=
+            "= "+result;
+    }
+
+    catch
+    {
+        document.getElementById("calcResult").innerText=
+            "Xato!";
+    }
+}
+
+
+function changeColor()
+{
+    let color=
+        document.getElementById("colorPicker").value;
+
+    document.getElementById("colorPreview")
+    .style.background=color;
+
+    document.getElementById("colorText")
+    .innerText=color;
+}
+
+
+/* =========================
+START
+========================= */
+
+renderArduino();
+
+updateAccountUI();
+
+updateDashboard();
+
+updateKit();
+
+</script>
+
+</body>
+</html>
